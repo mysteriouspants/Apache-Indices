@@ -1,0 +1,5 @@
+# In order for the PHP file to execute in a header, need to have a major type of text
+AddType text/html .php
+# removed because it caused dreamhost to NOT process php; add back if you need it
+# AddHandler application/x-httpd-php .php
+Options -Indexes

@@ -1,0 +1,176 @@
+/*
+  Indices styles: javascript version
+    This does its magic based on a bunch of Javascript that cruises
+    the DOM of Apache's HTML output and injects useful class names
+    throughout.
+
+  Indices: http://antisleep.com/software/indices
+*/
+
+/*==========================================================================*/
+
+body {
+    font-family: verdana, helvetica, arial, sans-serif;
+    margin: 10px 10px 10px 10px;
+    font-size: 11px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+a:hover {
+    background: #dddddd;
+}
+
+img {
+    border: 0;
+}
+
+/* HEADER STYLING ==========================================================*/
+
+.header, .path {
+    width: 600px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-image {
+    float: right;
+    margin-left: 3em;
+}
+
+/* gets rid of visual glitch from hover color */
+.header img {
+    vertical-align: bottom;
+}
+
+header a {
+    font-weight: bold;
+}
+
+.readme {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.path {
+    text-align: left;
+    font-size: 9px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.credits {
+    text-align: right;
+    font-size: 9px;
+    font-style: italic;
+    width: 600px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.credits a {
+    text-decoration: underline;
+}
+
+/* TABLE STYLING ============================================================*/
+
+table {
+    background-color: white;
+    border: solid 1px #888888;
+
+    padding: 0px;
+
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    font-size: 11px;
+}
+
+tr,td,th {
+    padding: 0;
+    border: 0;
+}
+
+td a, th a {
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* rollover effect for table rows, header cells */
+tr:hover, th:hover {
+    background: #dddddd;
+}
+
+th {
+    background: #f3f3f3;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    padding: 0 3px;
+}
+
+th a {
+    font: 10px Verdana, Arial, Helvetica, sans-serif;
+    color: #333333;
+}
+
+
+/* Don't show the 'Parent Directory' row */
+/*.row_parentdir {
+    display: none;
+}*/
+
+/* directories appear in bold */
+.dirlink {
+    font-weight: bold;
+}
+
+/* ICON header cell */
+tr:first-child th:first-child {
+    border-left: 1px solid #e0e0e0;
+    padding: 0px 0px 0px 1px;
+}
+
+/* all cells in ICON column */
+tr td:first-child {
+    text-align: center;
+    width: 24px;
+}
+
+tr.row_parentdir td.cell_parentdir:first-child {
+  text-align: left;
+}
+
+/* all cells in NAME column */
+tr td:nth-child(2) {
+    text-align: left;
+    padding-left: 5px;
+    width: 350px;
+}
+
+/* all cells in LAST MODIFIED column */
+tr td,th:nth-child(3) {
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* SIZE header cell */
+tr:first-child th:nth-child(4) {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 5px;
+}
+
+/* all cells in SIZE column */
+tr td,th:nth-child(4) {
+    text-align: right;
+    padding-right: 5px;
+}

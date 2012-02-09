@@ -1,0 +1,178 @@
+/*
+  Indices styles: javascript-free version
+    This does its magic using a bunch of CSS2 selectors.  These won't
+    work in IE, so you'll miss some styling, and the hiding of certain
+    rows and columns.
+
+  Indices: http://antisleep.com/software/indices
+*/
+
+/*===========================================================================*/
+
+body {
+    font-family: verdana, helvetica, arial, sans-serif;
+    margin: 10px 10px 10px 10px;
+    font-size: 11px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+a:hover {
+    background: #dddddd;
+}
+
+img {
+    border: 0;
+}
+
+/* HEADER STYLING ===========================================================*/
+
+.header {
+    width: 600px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* gets rid of visual glitch from hover color */
+.header img {
+    vertical-align: bottom;
+}
+
+.header a {
+    font-weight: bold;
+}
+
+.readme {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.path {
+    text-align: left;
+    font-size: 9px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.credits {
+    text-align: right;
+    font-size: 9px;
+    font-style: italic;
+    width: 600px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.credits a {
+    text-decoration: underline;
+}
+
+/* TABLE STYLING ============================================================*/
+
+table {
+   background-color: white;
+   border: solid 1px #888888;
+
+   padding: 0px;
+
+   width: 600px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+tr,td,th {
+    padding: 0;
+    border: 0;
+}
+
+/* rollover effect for table rows, header cells */
+tr:hover, th:hover {
+    background: #dddddd;
+}
+
+th {
+    background: #f3f3f3;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+th a {
+    font: 10px Verdana, Arial, Helvetica,   sans-serif;
+    color: #333333;
+}
+
+
+/* Don't show the 'Parent Directory' row */
+table tr:first-child + tr {
+    display: none;
+}
+
+/* All file links are bold */
+td a {
+    font-weight: bold;
+}
+
+
+/* ICON header cell */
+th:first-child {
+    border-left: 1px solid #e0e0e0;
+    padding: 0px 0px 0px 1px;
+}
+
+/* all cells in ICON column */
+td:first-child {
+    text-align: center;
+    width: 24px;
+}
+
+/* NAME header */
+th:first-child + th {
+    text-align: left;
+    padding-left: 5px;
+    width: 350px;
+}
+
+/* all other NAME cells */
+td:first-child + td {
+    text-align: left;
+    padding-left: 5px;
+}
+
+/* LAST MODIFIED header */
+th:first-child + th + th {
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* all other LAST MODIFIED cells */
+td:first-child + td + td {
+    padding-right: 5px;
+}
+
+/* SIZE header */
+th:first-child + th + th + th {
+    border-right: 1px solid #e0e0e0;
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* all other SIZE cells */
+td:first-child + td + td + td {
+    padding-right: 5px;
+}
+
+/* DESCRIPTION header */
+th:first-child + th + th + th + th {
+    display: none;
+}
+
+/* all other DESCRIPTION cells */
+td:first-child + td + td + td + td {
+    display: none;
+}
