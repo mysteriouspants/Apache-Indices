@@ -1,11 +1,10 @@
 # Apache Indices
 
-A quick set of hacks to make Apache directory indexes look pretty spiffy.
-
-This is a bunch of modifications to http://antisleep.com/software/indices, including moving everything to JQuery and massively rewriting the CSS to make use of `:nth-child()` selectors, etc. It's overall pretty spiffy.
+Change-up of Apache Indices to use Twitter Bootstrap theme. It looks
+really spiffy now.
 
 # Install
 
 Pay extra-special attention to the `.htaccess` files - they're pretty important. Dump the junk on your webserver, then mangle the configurations in `header.php` to suit your fancy. It'll probably require a bit of tweaking, but it shouldn't be too hard.
 
-You'll need to go fetch your own JQuery; dump it somewhere and point to that using the config variable. After that, enjoy!
+You'll need to go fetch your own JQuery and Twitter Bootstrap; dump it somewhere and point to that by editing the header info further down the `header.php` file - it should be fairly self-explanatory. After that, enjoy!

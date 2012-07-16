@@ -4,20 +4,12 @@
 // It's part of Indices: http://antisleep.com/software/indices
 
 $(document).ready(function(){
-  var parentRow = $('tr:nth-child(2)').first();
-  if (parentRow && $('td:nth-child(2) a', parentRow).text()=='Parent Directory') {
-    parentRow.addClass('row_parentdir');
-    $('td',parentRow).addClass('cell_parentdir');
-  } else {
-    parentRow = null;
-  }
-  var allTrs = $('tr:not(.row_parentdir) td:nth-child(2)').addClass(function(){
-    if ($('a', this).attr('href').match(/\/$/)) {
-      return 'dirlink';
-    } else {
-      return 'filelink';
-    }
+  // apply better styling
+  $('#indices-content table').each(function(){
+    $(this).addClass('table table-bordered table-striped').attr('id', 'indices-table');
   });
-  var pagecontainer = $("#pagecontainer");
-  pagecontainer.fadeIn('slow');
+
+  // chop out the header row and drop it into a table header
+  var headerRow = $('#indices-table tbody tr:first-child').detach();
+  $('#indices-table tbody').before('<thead>'+headerRow.html()+'</thead>');
 });
