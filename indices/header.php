@@ -4,22 +4,6 @@
     // A few configuration values.  Change these as you see fit.
     //=======================================================================
 
-    // use_js
-    //   If true, does a DHTML thing to cruise the DOM of Apache's
-    //   HTML output, injecting useful class names throughout.
-    //   This allows for a simple CSS file.
-    //     + looks better (directories only bold, no trailing slash on dirs, etc)
-    //     + works on IE
-    //     - you'll get less styling if you have javascript disabled
-    //
-    //   If false, uses a more sophisticated CSS (some CSS2 stuff)
-    //   to style Apache's output.
-    //     + no javascript, which makes it less delicate
-    //     - looks a bit worse
-    //     - IE6 doesn't do CSS2, so you'll miss out on some styling, in particular
-    //       hidden "description" column and "parent directory" row
-    $use_js = true;
-
     // show_readme
     //   If true, the contents of an (optional) readme.html file will appear before
     //   the directory listing.  This file should be an HTML snippet; no head/body/etc
@@ -30,7 +14,7 @@
     //   How to format the <title> tag.  %DIR is replaced with the directory path.
     // for instance:
     //   $titleformat = "antisleep: %DIR";
-    $titleformat = "cdn.fsdev.net%DIR";
+    $titleformat = "cdn.fsdev.net%DIR"; // will create cdn.fsdev.net/dir
 
     // logoimageurl, logolink
     //   If these are provided, the provided logo URL will be inserted as an <img> tag
@@ -39,8 +23,13 @@
     // for instance:
     //  $logoimageurl = "/images/titlebar-small.gif";
     //  $logolink     = "http://antisleep.com/";
-    $logoimageurl = "http://cdn.fsdev.net/fsdevlogo_full_black.png";
+    $logoimageurl = "http://cdn.fsdev.net/www-web-common/fsdev/fsdevlogo_full_black.png";
     $logolink     = "http://cdn.fsdev.net/";
+
+    $bootstrap_css_url = "/www-web-common/twitter-bootstrap-2.0.4/css/bootstrap.min.css";
+    $bootstrap_js_url  = "/www-web-common/twitter-bootstrap-2.0.4/js/bootstrap.min.js";
+    $jquery_url = "/www-web-common/jquery-1.7.2.min.js";
+    $indices_js_url = "/indices/script.js"; // all my hackery to style the table
 
     //=======================================================================
     // (end of config)
@@ -70,11 +59,24 @@
     $readmefile = $_SERVER["DOCUMENT_ROOT"] . $uri . "/readme.html";
     if ($show_readme && file_exists($readmefile)) {
         $readmetext = "<div class='readme'>" . file_get_contents($readmefile) . "</div>";
-    } else {
-      // If no readme, show URI.
-
-	    $pathtext = $uri;
     }
+    $pathtext = $uri;
+
+    // some additional breadcrumbs logic
+    $splitpath = explode('/', $pathtext); // split on / to get individual dirs
+    $splitpath[0] = '/'; // ensure that the first dir is / and not null
+    $spliturls = array(); // this next bit creates a series of URLs based on the dirs
+    for ($i=0; $i<count($splitpath); $i++) { // so $splitpath is the displayable name, and
+      $part = $splitpath[0]; // $spliturls is the links
+      for ($j=1; $j<=$i; $j++) { // for each add the parent dirs to the url
+        $part .= $splitpath[$j].'/';
+      }
+      if (count($splitpath)>0) { // kill the trailing slash because I don't like it
+        $part = rtrim($part, '/');
+      }
+      $spliturls[$i] = $part; // and there you go, we have yer URL
+    }
+    
 ?>
 <html lang="en-us">
 <head>
@@ -83,7 +85,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- le styles -->
-    <link rel="stylesheet" href="/www-web-common/twitter-bootstrap-2.0.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=$bootstrap_css_url?>">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -103,9 +105,9 @@
     <![endif]-->
 
     <!-- le javascript, placed at beginning of document because fast load doesn't matter to me for this page -->
-    <script type="text/javascript" src="/www-web-common/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/www-web-common/twitter-bootstrap-2.0.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/indices/script.js"></script>
+    <script type="text/javascript" src="<?=$jquery_url?>"></script>
+    <script type="text/javascript" src="<?=$bootstrap_js_url?>"></script>
+    <script type="text/javascript" src="<?=$indices_js_url?>"></script>
 </head>
 
 <body>
@@ -123,30 +125,15 @@
     <div class="row-fluid">
       <div class="span1"> &nbsp; </div>
       <div class="span10">
-        <?php
-          $splitpath = explode('/', $pathtext);
-          $splitpath[0] = '/';
-          $spliturls = array();
-          for ($i=0; $i<count($splitpath); $i++) {
-            $part = $splitpath[0];
-            for ($j=1; $j<=$i; $j++) {
-              $part .= $splitpath[$j].'/';
-            }
-            if (count($splitpath)>0) {
-              $part = rtrim($part, '/');
-            }
-            $spliturls[$i] = $part;
-          }
-        ?>
-        <ul class="breadcrumb">
-          <li>
-            <a href="/"><i class="icon-home"></i></a>
-            <span class="separator">/</span>
+        <ul class="breadcrumb"> <!-- le breadcrumb navigation -->
+          <li> <!-- le root/home directory -->
+            <a href="/"><i class="icon-home"></i></a> 
+            <span class="divider">/</span>
           </li>
           <?php for ($i=1; $i<count($splitpath) && $i<count($spliturls); $i++) { ?>
             <li>
               <a href="<?=$spliturls[$i]?>"><?=$splitpath[$i]?></a>
-              <?php if ($i < count($splitpath) && $i < count($spliturls)) { ?>
+              <?php if ($i < count($splitpath)-1 && $i < count($spliturls)-1) { ?>
                 <span class="divider">/</span>
               <?php } ?>
             </li>
